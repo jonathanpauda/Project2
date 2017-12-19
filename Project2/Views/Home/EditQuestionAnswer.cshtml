@@ -1,0 +1,28 @@
+﻿@model Project2.Models.MissionQuestions
+@{
+    ViewBag.Title = "EditQuestionAnswer";
+}
+
+
+
+<h3>Edit Question Answer</h3>
+<div class="container">
+    <b>Question Text:</b> @ViewBag.QuestionInfo.Question
+    <br />
+    <b>Current Answer:</b> @ViewBag.QuestionInfo.Answer
+    <br /><br />
+    @using (Html.BeginForm("EditQuestionAnswer", "Home", FormMethod.Post))
+    {
+        <b>New Answer:</b>
+        @Html.TextAreaFor(model => model.Answer, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+
+        <br />
+        @Html.HiddenFor(model => model.MissionQuestionID, new { @Value = ViewBag.QuestionInfo.MissionQuestionID })
+        @Html.HiddenFor(Model => Model.MissionID, new { @Value = ViewBag.QuestionInfo.MissionID })
+        <input type="submit" value="Go!" class="btn btn-default btn-sm" />
+    }
+    <br /><br /><br />
+    **Submitting a new answer will take you back to the Mission page.
+</div>
+

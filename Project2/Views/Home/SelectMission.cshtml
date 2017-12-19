@@ -1,0 +1,48 @@
+﻿@model Project2.Models.MissionQuestions
+@{
+    ViewBag.Title = "SelectMission";
+}
+<style>
+    #country_flag {
+        width: 350px;
+        height: 200px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+</style>
+@foreach (var mission in ViewBag.MissionData)
+{
+    <div class="container">
+        <div class="row">
+            <h3>@mission.MissionName</h3>
+            <div class="col-md-6">
+                <p><b>Mission President: </b>@mission.MissionPresident</p>
+                <p><b>Language: </b>@mission.MissionLanguage</p>
+                <p><b>Address: </b>@mission.MissionAddress</p>
+                <p><b>Climate: </b>@mission.MissionClimate</p>
+                <p><b>Dominant Religion: </b>@mission.DominantReligion</p>
+            </div>
+            <div class="col-md-6">
+                <p><b>Country Flag: </b><br /><img id="country_flag" src="~/Content/Images/MissionFlags/@mission.FlagSource" /></p>
+            </div>
+        </div>
+    </div>
+
+    using (Html.BeginForm("SubmitNewQuestion", "Home", FormMethod.Post))
+    {
+        <b>Ask a Question!</b>
+        @Html.TextAreaFor(model => model.Question, new { @class = "form-control" })
+        @Html.HiddenFor(model => model.MissionID, new { @Value = mission.MissionID })
+        @Html.HiddenFor(model => model.UserName, new { @Value = ViewBag.UserEmail })<br />
+        <input type="submit" value="Submit" class="btn btn-default btn-sm" />
+    }
+}
+<br />
+<h4><b>Frequently Asked Questions</b></h4>
+@foreach (var question in ViewBag.MissionQuestions)
+{
+    <p><b>@question.Question</b></p>
+    <p>&emsp;&emsp;@question.Answer  @Html.ActionLink("(Edit Answer)", "EditQuestionAnswer", "Home", new { questionID = question.MissionQuestionID, missionID = question.MissionID }, null)</p>
+}

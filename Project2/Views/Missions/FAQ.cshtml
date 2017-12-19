@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Project2.Models.Missions>
+@{
+    ViewBag.Title = "FAQ";
+}
+
+<h2>FAQ</h2>
+
+   
+
+
+<div class="container">
+    <div class="row">
+        <!--Drop down menu which displays the different missions you can select from-->
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Select a Mission
+                <span class="caret"></span>
+            </button>
+            <!--When the user selects a mission from the drop down menu the parameters with the associated mission are passed to the next view-->
+            <ul class="dropdown-menu">
+                @foreach (var item in Model)
+                {
+                    // Needs to be changed to redirect to the Mission info view
+                    <li> @Html.ActionLink(item.MissionName, "Index", "Missions", new { id = item.MissionID }, null)</li>
+                }
+            </ul>
+        </div>
+
+        @*@using (Html.BeginForm("MissionInfo", "Mission", FormMethod.Post))
+            {
+                //create dropdown menu for possible missions to select
+                @Html.DropDownListFor(m => m.MissionID, new List<SelectListItem>
+                                   { new SelectListItem{ Text="Brazil - Ribeirao Preto", Value = "1" },
+                                    new SelectListItem{ Text="USA - North Carolina - Raleigh", Value = "2" },
+                                    new SelectListItem{ Text="Japan - Fukuoka", Value = "3" } },
+                             "Select a mission...",
+                             new { required = "required" })
+                <br /><br />
+                //create submit button; dropdown menu selection is required
+                <button type="submit" class="btn btn-primary pull-left">
+                    Go <span class="glyphicon glyphicon-send"></span>
+                </button>
+            }*@
+    </div>
+</div>
