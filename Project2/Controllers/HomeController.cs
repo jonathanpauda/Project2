@@ -15,10 +15,10 @@ namespace Project2.Controllers
     public class HomeController : Controller
     {
         private Project2Context db = new Project2Context();
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public ActionResult About()
         {
@@ -84,6 +84,50 @@ namespace Project2.Controllers
             ViewBag.UserEmail = User.Identity.GetUserName();
 
             return View();
+        }
+        // POST: MissionQuestions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "MissionQuestionID,MissionID,UserID,Question,Answer")] MissionQuestions missionQuestions)
+        {
+            if (ModelState.IsValid)
+            {
+                db.MissionQuestions.Add(missionQuestions);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(missionQuestions);
+        }
+
+        // GET: FAQ
+        [Authorize]
+        public ActionResult FAQ()
+        {
+            return View(db.MissionQuestions.ToList());
+        }
+
+        // GET: MissionQuestions
+        public ActionResult Index()
+        {
+            return View(db.MissionQuestions.ToList());
+        }
+
+        // GET: MissionQuestions/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MissionQuestions missionQuestions = db.MissionQuestions.Find(id);
+            if (missionQuestions == null)
+            {
+                return HttpNotFound();
+            }
+            return View(missionQuestions);
         }
     }
 }

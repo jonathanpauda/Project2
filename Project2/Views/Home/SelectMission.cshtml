@@ -22,10 +22,10 @@
                 <p><b>Language: </b>@mission.MissionLanguage</p>
                 <p><b>Address: </b>@mission.MissionAddress</p>
                 <p><b>Climate: </b>@mission.MissionClimate</p>
-                <p><b>Dominant Religion: </b>@mission.DominantReligion</p>
+                @*<p><b>Dominant Religion: </b>@mission.DominantReligion</p>*@
             </div>
             <div class="col-md-6">
-                <p><b>Country Flag: </b><br /><img id="country_flag" src="~/Content/Images/MissionFlags/@mission.FlagSource" /></p>
+                @*<p><b>Country Flag: </b><br /><img id="country_flag" src="~/Content/Images/MissionFlags/@mission.FlagSource" /></p>*@
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
         <b>Ask a Question!</b>
         @Html.TextAreaFor(model => model.Question, new { @class = "form-control" })
         @Html.HiddenFor(model => model.MissionID, new { @Value = mission.MissionID })
-        @Html.HiddenFor(model => model.UserName, new { @Value = ViewBag.UserEmail })<br />
+        @Html.HiddenFor(model => model.UserID, new { @Value = ViewBag.UserEmail })<br />
         <input type="submit" value="Submit" class="btn btn-default btn-sm" />
     }
 }
