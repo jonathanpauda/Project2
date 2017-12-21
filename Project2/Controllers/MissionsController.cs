@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Project2.DAL;
 using Project2.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Project2.Controllers
 {

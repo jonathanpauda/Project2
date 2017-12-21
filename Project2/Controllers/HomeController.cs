@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Project2.DAL;
 using Project2.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Project2.Controllers
 {
@@ -60,6 +61,29 @@ namespace Project2.Controllers
             redirectMission.MissionID = model.MissionID;
 
             return RedirectToAction("RedirectToMission", new { missionID = model.MissionID });
+        }
+
+        [HttpPost]
+
+        [Authorize]
+        public ActionResult SelectMission(Missions model)
+        {
+            var id = model.MissionID;
+
+            IEnumerable<Missions> missionData = db.Database.SqlQuery<Missions>(
+                "SELECT * FROM Missions WHERE MissionID = " + model.MissionID).ToList();
+
+            ViewBag.MissionData = missionData;
+
+            IEnumerable<MissionQuestions> missionQuestions = db.Database.SqlQuery<MissionQuestions>(
+                "SELECT * FROM MissionQuestions WHERE MissionID = " + model.MissionID).ToList();
+
+            ViewBag.MissionQuestions = missionQuestions;
+
+            ViewBag.UserID = User.Identity.GetUserId();
+            ViewBag.UserEmail = User.Identity.GetUserName();
+
+            return View();
         }
     }
 }

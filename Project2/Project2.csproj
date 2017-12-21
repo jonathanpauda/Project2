@@ -292,6 +292,7 @@
     <Content Include="Views\Home\EditQuestionAnswer.cshtml" />
     <Content Include="Views\Home\SelectMission.cshtml" />
     <Content Include="Views\Home\Missions.cshtml" />
+    <Content Include="Views\Missions\Missions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
